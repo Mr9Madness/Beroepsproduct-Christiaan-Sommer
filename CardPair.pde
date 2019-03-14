@@ -1,7 +1,7 @@
 public class CardPair {
     public Card FirstCard = null;
     public Card SecondCard = null;
-    public bool IsFull()
+    public boolean IsFull()
     {
         if( FirstCard == null ) return false;
         if( SecondCard == null ) return false;
@@ -17,5 +17,9 @@ public class CardPair {
         FirstCard = firstCard;
         SecondCard = secondCard;
     }
-
+    public void Update()
+    {
+        FirstCard.Update();
+        SecondCard.Update();
+    }
 }

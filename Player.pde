@@ -1,3 +1,5 @@
-public class Player {
-
+public class Player
+{
+    public boolean CurrentTurn;
+    public int Score;
 }

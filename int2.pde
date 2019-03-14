@@ -8,4 +8,10 @@ private class int2
         this.X = x;
         this.Y = y;
     }
+    public int2 Multiply( int times )
+    {
+        this.X *= times;
+        this.Y *= times;
+        return this;
+    }
 }

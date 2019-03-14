@@ -7,25 +7,37 @@ public class Map
     {
         // TODO MAKE THIS LESS OF A MESS
         cards = new String[width / 100][height / 150];
-        PImage[] icons = new Icons("assets/icons.png", 288, 480).LoadShapes(14);
-        for (int x = 0; x < width / 100; x++)
+        
+        // TODO Calculate the amount of card that fix on the screen
+        cardSets = new CardPair[5];
+        Icons icons = new Icons("assets/icons.png", 288, 480).LoadShapes(14);
+        for (int i = 0; i < cardSets.length; i++)
         {
-            for (int y = 0; y < height / 150; y++)
-            {
-                PImage icon = icons.GetRandom();
+            PImage icon = icons.GetRandom();
+            cardSets[i] = new CardPair( InitCard(icon), InitCard(icon) );
+        }
+    }
 
-                int firstRandomX = random(0, x / 100);
-                int firstRandomY = random(0, y * 150);
-                Card firstCard = new Card( new int2( firstRandomX, firstRandomY ), icon );
-                cards[firstRandomX][firstRandomY] = firstCard.GetId();
+    public Card InitCard(PImage icon)
+    {
+        int randomX = (int)random(0, width / 100);
+        int randomY = (int)random(0, height / 150);
 
-                int secondRandomX = random(0, x / 100);
-                int secondRandomY = random(0, y * 150);
-                Card seconCard = new Card( new int2( secondRandomX, secondRandomY ), icon );
-                cards[secondRandomX][secondRandomY] = seconCard.GetId();
+        // TODO Implement a better way to see if its already taken
+        while( cards[randomX][randomY] != null )
+        {
+            randomX = (int)random(0, width / 100);
+            randomY = (int)random(0, height / 150);
+        }
+        Card card = new Card( new int2( randomX, randomY ), icon );
+        cards[randomX][randomY] = card.GetId();
+        return card;
+    }
 
-                append(cardSets, new CardPair( firstCard, secondCard ));
-            }
+    public void UpdateCards()
+    { //<>//
+        for (CardPair pair : cardSets) {
+            pair.Update();
         }
     }
 }
