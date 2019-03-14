@@ -5,14 +5,18 @@ public class Card
     private PImage icon;
     private boolean chosen;
 
+    public boolean Revealed;
+
     public Card( int2 pos, PImage icon ) {
         this.pos = new int2( pos.X * 100, pos.Y * 150 );
         this.id = GenerateID();
         this.icon = icon;
         this.chosen = false;
+        this.Revealed = false;
     }
 
     public String GetId(){ return id; }
+    public boolean IsChosen(){ return this.chosen; }
     private String GenerateID()
     {
         String ID = "";
@@ -24,8 +28,26 @@ public class Card
 
     public void Update()
     {
-        fill(125);
+        if( !Revealed )
+        {
+            if( mousePressed && mouseX >= pos.X && mouseX <= pos.X + 100 && mouseY >= pos.Y && mouseY <= pos.Y + 150 ) {
+
+                // TODO This gets called every frame to it jump between true and false
+                // TODO Find a way to have a mouse released event variable thats only true for one frame
+                if( this.chosen ) this.chosen = false;
+                else this.chosen = true;
+                fill(185);
+            } else if( mouseX >= pos.X && mouseX <= pos.X + 100 && mouseY >= pos.Y && mouseY <= pos.Y + 150 )
+            {
+                if( this.chosen ) fill( 125 );
+                else fill(205);
+            } else {
+                if( this.chosen ) fill( 185 );
+                else fill(255);
+            }
+        }
+        else { fill( 185 ); }
         rect(pos.X, pos.Y, 100, 150);
-        image(icon, pos.X + 35, pos.Y + 55);
+        if( this.chosen || this.Revealed ) image(icon, pos.X + 35, pos.Y + 55);
     }
 }

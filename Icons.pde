@@ -19,11 +19,11 @@ public class Icons
             PImage image = createImage(32,32, ARGB);
             int2 randomIcon = new int2( (int)random(0,9), (int)random(0,15));
             image.loadPixels();
-             for (int x = 0; x < 32; x++) {
-                 for (int y = 0; y < 32; y++) {
-                     image.pixels[ y * image.width + x] = bigimage.pixels[ (y + randomIcon.Y * 32 ) * bigimage.width + (x + randomIcon.X * 32 ) ];
-                 }
-             }
+            for (int x = 0; x < 32; x++) {
+                for (int y = 0; y < 32; y++) {
+                    image.pixels[ y * image.width + x] = bigimage.pixels[ (y + randomIcon.Y * 32 ) * bigimage.width + (x + randomIcon.X * 32 ) ];
+                }
+            }
 
             image.updatePixels();
             loadedShapes[i] = image;

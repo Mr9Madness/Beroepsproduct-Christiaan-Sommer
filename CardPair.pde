@@ -21,5 +21,11 @@ public class CardPair {
     {
         FirstCard.Update();
         SecondCard.Update();
+
+        if( FirstCard.IsChosen() && SecondCard.IsChosen() )
+        {
+            FirstCard.Revealed = true;
+            SecondCard.Revealed = true;
+        }
     }
 }
