@@ -5,6 +5,7 @@ public class Card
     private PImage icon;
     private boolean chosen;
 
+    public boolean Frozen;
     public boolean Revealed;
 
     public Card( int2 pos, PImage icon ) {
@@ -13,10 +14,12 @@ public class Card
         this.icon = icon;
         this.chosen = false;
         this.Revealed = false;
+        this.Frozen = false;
     }
 
     public String GetId(){ return id; }
     public boolean IsChosen(){ return this.chosen; }
+    public void SetChosen( boolean isChosen ){ chosen = isChosen; }
     private String GenerateID()
     {
         String ID = "";
@@ -28,7 +31,7 @@ public class Card
 
     public void Update()
     {
-        if( !Revealed )
+        if( !Revealed && !Frozen )
         {
             if( mousePressed && mouseX >= pos.X && mouseX <= pos.X + 100 && mouseY >= pos.Y && mouseY <= pos.Y + 150 ) {
 

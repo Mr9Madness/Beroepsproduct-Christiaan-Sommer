@@ -7,7 +7,7 @@ public class Map
     {
         // TODO MAKE THIS LESS OF A MESS
         cards = new String[width / 100][height / 150];
-        
+
         // TODO Calculate the amount of card that fix on the screen
         cardSets = new CardPair[5];
         Icons icons = new Icons("assets/icons.png", 288, 480).LoadShapes(14);
@@ -35,9 +35,30 @@ public class Map
     }
 
     public void UpdateCards()
-    { //<>//
+    {
+        int chosenCount = 0;
         for (CardPair pair : cardSets) {
             pair.Update();
+
+            if( pair.FirstCard.IsChosen() || pair.SecondCard.IsChosen() )
+                chosenCount++;
+
+            if( chosenCount >= 2 )
+            {
+                pair.FirstCard.Frozen = true;
+                pair.SecondCard.Frozen = true;
+
+                println("millis: " + millis() % 2000 );
+                if( millis() % 2500 > 2000 )
+                {
+                    pair.FirstCard.SetChosen(false);
+                    pair.SecondCard.SetChosen(false);
+
+                    pair.FirstCard.Frozen = false;
+                    pair.SecondCard.Frozen = false;
+
+                }
+            }
         }
     }
 }

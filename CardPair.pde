@@ -26,6 +26,9 @@ public class CardPair {
         {
             FirstCard.Revealed = true;
             SecondCard.Revealed = true;
+            
+            FirstCard.SetChosen(false);
+            SecondCard.SetChosen(false);
         }
     }
 }
