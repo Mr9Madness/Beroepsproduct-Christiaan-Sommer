@@ -49,7 +49,8 @@ public class Card
                 else fill(255);
             }
         }
-        else { fill( 185 ); }
+        else if( Revealed ) { fill( 185 ); }
+        else if( Frozen ){ fill(255); }
         rect(pos.X, pos.Y, 100, 150);
         if( this.chosen || this.Revealed ) image(icon, pos.X + 35, pos.Y + 55);
     }

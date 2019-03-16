@@ -45,19 +45,28 @@ public class Map
 
             if( chosenCount >= 2 )
             {
-                pair.FirstCard.Frozen = true;
-                pair.SecondCard.Frozen = true;
+                FreezeCards();
+                chosenCount = 0;
+            }
+        }
+    }
+    
+    private void FreezeCards()
+    {
+        for (CardPair pair : cardSets) {
 
-                println("millis: " + millis() % 2000 );
-                if( millis() % 2500 > 2000 )
-                {
-                    pair.FirstCard.SetChosen(false);
-                    pair.SecondCard.SetChosen(false);
-
-                    pair.FirstCard.Frozen = false;
-                    pair.SecondCard.Frozen = false;
-
-                }
+            pair.FirstCard.Frozen = true;
+            pair.SecondCard.Frozen = true;
+    
+            println("millis: " + millis() % 2000 );
+            if( millis() % 2500 > 2000 )
+            {
+                pair.FirstCard.SetChosen(false);
+                pair.SecondCard.SetChosen(false);
+    
+                pair.FirstCard.Frozen = false;
+                pair.SecondCard.Frozen = false;
+    
             }
         }
     }
