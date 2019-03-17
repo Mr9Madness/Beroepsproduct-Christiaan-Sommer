@@ -2,8 +2,10 @@
 
 ## Logboek
 
-### 17 Maart - 2 uur aan werk
+### 17 Maart - 3 uur aan werk
 
+- Het selecteren van een kaart gefixt
+- Er worden geen dubbele icoonen meer geladen
 - De game begint nu in een main menu waar de een single of multi player kan kiezen
 - Score van de player word bijgehouden als je een set vind krijg je nu 50 punten
 - Er kan nu met twee mensen gespelen worden en de score van bijde wordt bijgehouden

@@ -25,7 +25,6 @@ static class Util
     private static boolean GetBoolean(boolean defaultValue, boolean... c)
     {
         // A method for getting the first object of a vararg because java doesn't have optional parameters in contructors
-        // fucking java
         if( c.length == 1 ) return c[0];
         else return defaultValue;
     }

@@ -37,8 +37,7 @@ public class Card
 
                 // TODO This gets called every frame to it jump between true and false
                 // TODO Find a way to have a mouse released event variable thats only true for one frame
-                if( this.chosen ) this.chosen = false;
-                else this.chosen = true;
+                this.chosen = true;
                 fill(185);
             } else if( mouseX >= pos.X && mouseX <= pos.X + 100 && mouseY >= pos.Y && mouseY <= pos.Y + 150 )
             {

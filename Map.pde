@@ -16,10 +16,10 @@ public class Map
 
         // TODO Calculate the amount of card that fix on the screen
         cardSets = new CardPair[5];
-        Icons icons = new Icons("assets/icons.png", 288, 480).LoadShapes(14);
+        Icons icons = new Icons("assets/icons.png").LoadIcons(cardSets.length);
         for (int i = 0; i < cardSets.length; i++)
         {
-            PImage icon = icons.GetRandom();
+            PImage icon = icons.GetLoaded()[i];
             cardSets[i] = new CardPair( InitCard(icon), InitCard(icon) );
         }
     }

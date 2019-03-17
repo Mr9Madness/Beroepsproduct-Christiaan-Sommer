@@ -1,23 +1,28 @@
 public class Icons
 {
-    private int2 size;
     private String fileName;
-    private PImage[] loadedShapes;
-    public Icons (String fileName, int sizeX, int sizeY)
+    private PImage[] loadedIcons;
+    private boolean[][] usedIcons;
+    public Icons (String fileName)
     {
-        this.size = new int2(sizeX, sizeY);
         this.fileName = fileName;
     }
 
-    public Icons LoadShapes( int count )
+    public Icons LoadIcons( int count )
     {
-        this.loadedShapes = new PImage[count];
+        this.loadedIcons = new PImage[count];
+        this.usedIcons = new boolean[9][15];
 
         PImage bigimage = loadImage(this.fileName);
         bigimage.loadPixels();
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < count; i++) 
+        {
             PImage image = createImage(32,32, ARGB);
             int2 randomIcon = new int2( (int)random(0,9), (int)random(0,15));
+            while( usedIcons[randomIcon.X][randomIcon.Y] )
+                randomIcon = new int2( (int)random(0,9), (int)random(0,15));
+            usedIcons[randomIcon.X][randomIcon.Y] = true;
+            
             image.loadPixels();
             for (int x = 0; x < 32; x++) {
                 for (int y = 0; y < 32; y++) {
@@ -26,10 +31,9 @@ public class Icons
             }
 
             image.updatePixels();
-            loadedShapes[i] = image;
+            loadedIcons[i] = image;
         }
         return this;
     }
-    public PImage GetRandom() { return loadedShapes[ (int)random( 0, loadedShapes.length ) ]; }
-    public PImage[] GetLoaded(){ return loadedShapes; }
+    public PImage[] GetLoaded(){ return loadedIcons; }
 }
