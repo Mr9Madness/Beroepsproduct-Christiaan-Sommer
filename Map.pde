@@ -3,7 +3,13 @@ public class Map
     private String[][] cards;
     private CardPair[] cardSets;
 
-    public void InitCards()
+    public void Init()
+    {
+        //InitMap();
+        InitCards();
+    }
+
+    private void InitCards()
     {
         // TODO MAKE THIS LESS OF A MESS
         cards = new String[width / 100][height / 150];
@@ -34,7 +40,22 @@ public class Map
         return card;
     }
 
-    public void UpdateCards()
+    public void Update()
+    {
+        DrawMap();
+        UpdateCards();
+    }
+
+    private void DrawMap()
+    {
+        fill( 255 );
+        text( playerManager.PlayerOne.Score, 5, 10);
+
+        if( playerManager.PlayerTwo != null )
+            text( playerManager.PlayerTwo.Score, width - 20, 10);
+    }
+
+    private void UpdateCards()
     {
         int chosenCount = 0;
         for (CardPair pair : cardSets) {
@@ -50,23 +71,29 @@ public class Map
             }
         }
     }
-    
+
     private void FreezeCards()
     {
+        // Temp variable to make sure the turn doesn't switch for every pair
+        boolean changedTurn = false;
         for (CardPair pair : cardSets) {
 
             pair.FirstCard.Frozen = true;
             pair.SecondCard.Frozen = true;
-    
+
             println("millis: " + millis() % 2000 );
             if( millis() % 2500 > 2000 )
             {
                 pair.FirstCard.SetChosen(false);
                 pair.SecondCard.SetChosen(false);
-    
+
                 pair.FirstCard.Frozen = false;
                 pair.SecondCard.Frozen = false;
-    
+                if( !changedTurn )
+                {
+                   playerManager.ToggleTurn();
+                   changedTurn = true;
+                }
             }
         }
     }

@@ -1,19 +1,33 @@
 // TODO Maybe move this (its ugly)
+MainMenu menu = null;
 Map currentMap = null;
-Player currentPlayer = null;
+PlayerManager playerManager = null;
 
 void setup()
 {
     size(800, 400);
+    frameRate(144);
 
-    // TODO move to menu class once it exists
-    currentMap = new Map();
-    currentPlayer = new Player();
-
-    currentMap.InitCards();
+    menu = new MainMenu();
 }
 void draw() {
     background(0);
 
-    currentMap.UpdateCards();
+    if( currentMap == null )
+        menu.Update();
+    else
+        currentMap.Update();
+}
+
+
+static class Util
+{
+    private static boolean GetBoolean(boolean defaultValue, boolean... c)
+    {
+        // A method for getting the first object of a vararg because java doesn't have optional parameters in contructors
+        // fucking java
+        if( c.length == 1 ) return c[0];
+        else return defaultValue;
+    }
+
 }

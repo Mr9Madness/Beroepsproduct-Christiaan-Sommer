@@ -9,7 +9,7 @@ public class Card
     public boolean Revealed;
 
     public Card( int2 pos, PImage icon ) {
-        this.pos = new int2( pos.X * 100, pos.Y * 150 );
+        this.pos = new int2( pos.X * 100, pos.Y * 150 + 25 );
         this.id = GenerateID();
         this.icon = icon;
         this.chosen = false;
