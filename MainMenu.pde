@@ -7,7 +7,7 @@ class MainMenu
     MainMenu()
     {
       DrawGameGUI();
-      bar = new Sliderbar(new int2(width / 2 + 100, 150), new int2(width / 2 - 250, 25), 12, 18);
+      bar = new Sliderbar(new int2(width / 2 + 100, 25), new int2(width / 2 - 250, 25), 12, 18);
     }
 
     public void DrawGameGUI()
@@ -33,16 +33,16 @@ class MainMenu
     private void DrawOptionsGUI()
     {
         fill(150);
-        rect( width / 2, height - (height - 25), width / 2 - 50, height - 50);
+        rect( width / 2, height - (height - 25), width / 2 - 50, height / 2 - 50);
 
-        if( mouseX >= width / 2 + 150 - 35 && mouseX <= width / 2 + 150 - 35 + 150 && mouseY >= (height - 150) + 25 - 10 && mouseY <= (height - 150) + 25 - 10 + 45)
+        if( mouseX >= width / 2 + 150 - 35 && mouseX <= width / 2 + 150 - 35 + 150 && mouseY >= (height / 2 - 150) + 25 - 10 && mouseY <= (height - 150) + 25 - 10 + 45)
             fill(200);
         else
             fill( 255 );
-        rect( width / 2 + 150 - 35, (height - 150) + 25 - 10, 150, 45 );
+        rect( width / 2 + 150 - 35, (height / 2 - 150) + 25 - 10, 150, 45 );
 
         fill( 0 );
-        text( "PLAY!", width / 2 + 150 - 35, (height - 150) + 25 - 10, 50 + 75 + 35, 75 + 25 + 10 );
+        text( "PLAY!", width / 2 + 150 - 35, (height / 2 - 150) + 25 - 10, 50 + 75 + 35, 75 + 25 + 10 );
 
 
         bar.Update();
@@ -67,7 +67,7 @@ class MainMenu
     public void Update()
     {
         DrawGameGUI();
-        if( isGameOptionsShowing ) DrawOptionGUI();
+        if( isGameOptionsShowing ) DrawOptionsGUI();
 
         if( mousePressed && mouseX >= 50 && mouseX <= 50 + 150 && mouseY >= 75 && mouseY <= 75 + 50){
             this.isGameOptionsShowing = true;
@@ -77,7 +77,7 @@ class MainMenu
             this.isGameOptionsShowing = true;
             this.isGameSinglePlayer = false;
         }
-        if( mousePressed && mouseX >= width / 2 + 150 - 35 && mouseX <= width / 2 + 150 - 35 + 150 && mouseY >= (height - 150) + 25 - 10 && mouseY <= (height - 150) + 25 - 10 + 45)
+        if( mousePressed && mouseX >= width / 2 + 150 - 35 && mouseX <= width / 2 + 150 - 35 + 150 && mouseY >= (height / 2 - 150) + 25 - 10 && mouseY <= (height / 2 - 150) + 25 - 10 + 45)
         {
             if(isGameSinglePlayer) InitSinglePlayerGame();
             else InitMultiPlayerGame();
