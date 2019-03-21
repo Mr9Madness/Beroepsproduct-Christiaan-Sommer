@@ -31,7 +31,7 @@ class PlayerManager
     {
         if( PlayerTwo != null )
         {
-            PlayerTwo.CurrentTurn = PlayerOne.CurrentTurn; //<>//
+            PlayerTwo.CurrentTurn = PlayerOne.CurrentTurn;
             PlayerOne.CurrentTurn = !PlayerTwo.CurrentTurn;
         }
         else

@@ -5,7 +5,7 @@ PlayerManager playerManager = null;
 
 void setup()
 {
-    size(800, 400);
+    size(800, 400, P3D);
     frameRate(144);
 
     menu = new MainMenu();
@@ -30,3 +30,11 @@ static class Util
     }
 
 }
+
+//interface Control
+//{
+//    int2 pos;
+//    int2 width;
+
+//    void Update();
+//}
