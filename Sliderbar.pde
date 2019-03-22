@@ -1,7 +1,7 @@
 public class Sliderbar
 {
-    private int2 pos;
-    private int2 width;
+    private int2 barPos;
+    private int2 barWidth;
     private int min;
     private int max;
     private int value;
@@ -10,8 +10,8 @@ public class Sliderbar
 
     public Sliderbar( int2 pos, int2 width, int min, int max )
     {
-        this.pos = pos;
-        this.width = width;
+        this.barPos = pos;
+        this.barWidth = width;
         this.min = min;
         this.max = max;
         this.sliderX = pos.X;
@@ -19,26 +19,26 @@ public class Sliderbar
     public void Update()
     {
         if( isOver() && mousePressed ){
-            sliderX = mouseX - (width.Y / 2); // TODO: het aantal max is de width
-            //value = max * (max * 100 / (mouseX - pos.X) ) / 100;
-            value = mouseX - pos.X;
+            sliderX = mouseX - (barWidth.Y / 2);
+            value = max * ((mouseX - barPos.X) * 100 / barWidth.X ) / 100;
         }
 
         noStroke();
         fill(204);
 
-        rect(pos.X, pos.Y, width.X, width.Y);
+        rect(barPos.X, barPos.Y, barWidth.X, barWidth.Y);
 
         if (isOver() ) fill(0, 0, 0);
         else fill(102, 102, 102);
 
-        rect(sliderX, pos.Y, width.Y, width.Y);
+        rect(sliderX, barPos.Y, barWidth.Y, barWidth.Y);
         fill( 255 );
-        text( value, sliderX, pos.Y );
+        text( GetValue(), sliderX, barPos.Y );
+        stroke(0);
     }
 
     private boolean isOver() {
-        if (mouseX >= pos.X && mouseX <= pos.X + width.X && mouseY >= pos.Y && mouseY <= pos.Y + width.Y)
+        if (mouseX >= barPos.X && mouseX <= barPos.X + barWidth.X && mouseY >= barPos.Y && mouseY <= barPos.Y + barWidth.Y)
             return true;
         else
             return false;
@@ -46,6 +46,6 @@ public class Sliderbar
 
     public int GetValue()
     {
-        return value / 10; // TODO: change this pls
+        return constrain( value, min, max); // TODO: make it so it doesn't need to be clamped
     }
 }

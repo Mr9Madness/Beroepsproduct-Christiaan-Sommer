@@ -7,7 +7,7 @@ class MainMenu
     MainMenu()
     {
       DrawGameGUI();
-      bar = new Sliderbar(new int2(width / 2 + 100, 25), new int2(width / 2 - 250, 25), 12, 18);
+      bar = new Sliderbar(new int2(width / 2 + 100, 25), new int2(width / 2 - 250, 25), 2, 32);
     }
 
     public void DrawGameGUI()
@@ -50,7 +50,7 @@ class MainMenu
 
     public void InitSinglePlayerGame()
     {
-        currentMap = new Map();
+        currentMap = new Map(bar.GetValue());
         playerManager = new PlayerManager(false);
 
         currentMap.Init();
@@ -58,7 +58,7 @@ class MainMenu
 
     public void InitMultiPlayerGame()
     {
-        currentMap = new Map();
+        currentMap = new Map(bar.GetValue());
         playerManager = new PlayerManager(true);
 
         currentMap.Init();

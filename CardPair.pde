@@ -7,6 +7,11 @@ public class CardPair {
         if( SecondCard == null ) return false;
         return true;
     }
+    public boolean IsFound()
+    {
+        if( FirstCard.Revealed && FirstCard.Revealed ) return true;
+        return false;
+    }
     public CardPair() { }
     public CardPair( Card firstCard )
     {

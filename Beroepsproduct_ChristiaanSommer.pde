@@ -30,11 +30,3 @@ static class Util
     }
 
 }
-
-//interface Control
-//{
-//    int2 pos;
-//    int2 width;
-
-//    void Update();
-//}

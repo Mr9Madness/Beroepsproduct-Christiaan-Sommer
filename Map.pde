@@ -2,11 +2,26 @@ public class Map
 {
     private String[][] cards;
     private CardPair[] cardSets;
+    private int setAmount;
+
+    public Map(int amountSets)
+    {
+        this.setAmount = amountSets;
+    }
 
     public void Init()
     {
         //InitMap();
         InitCards();
+    }
+    
+    public void Update()
+    {
+        DrawMapGUI();
+        UpdateCards();
+        
+        if( isCardSetsFull() )
+            DrawVictoryGUI();
     }
 
     private void InitCards()
@@ -15,7 +30,7 @@ public class Map
         cards = new String[width / 100][height / 150];
 
         // TODO Calculate the amount of card that fix on the screen
-        cardSets = new CardPair[5];
+        cardSets = new CardPair[setAmount];
         Icons icons = new Icons("assets/icons.png").LoadIcons(cardSets.length);
         for (int i = 0; i < cardSets.length; i++)
         {
@@ -40,19 +55,15 @@ public class Map
         return card;
     }
 
-    public void Update()
-    {
-        DrawMap();
-        UpdateCards();
-    }
-
-    private void DrawMap()
+    private void DrawMapGUI()
     {
         fill( 255 );
-        text( playerManager.PlayerOne.Score, 5, 10);
+        text("Score: "/* + PlayerOne.Name */+ playerManager.PlayerOne.Score, 5, 10);
+
+        text( "Turn: " + playerManager.Turn, width / 2 - 10, 10 ); 
 
         if( playerManager.PlayerTwo != null )
-            text( playerManager.PlayerTwo.Score, width - 20, 10);
+            text( "Score:" /*+ PlayerTwo.Name */+ playerManager.PlayerTwo.Score, width - 65, 10);
     }
 
     private void UpdateCards()
@@ -72,6 +83,41 @@ public class Map
         }
     }
 
+    public boolean isCardSetsFull()
+    {
+        for( CardPair pair: cardSets ){
+            if(pair.IsFound()) continue;
+            return false;
+        }
+        return true;
+    }
+    
+    private void DrawVictoryGUI()
+    {
+        fill(150);
+        rect( width / 2 - ((width / 4) / 2), height / 2 - ((height / 4) / 2), width / 4, height / 4 );
+        
+        // TODO: Load previous high scores
+        
+        fill(255);
+        text( "Score: " + /*PlayerOne.Name+*/ playerManager.PlayerOne.Score, width / 2 - ((width / 4) / 2) + 10, height / 2 - ((height / 4) / 2) + 50 );
+        if( playerManager.PlayerTwo != null )
+            text( "Score:" + /*PlayerTwo.Name+*/ playerManager.PlayerTwo.Score, width / 2 - ((width / 4) / 2) + 10, height / 2 - ((height / 4) / 2) + 50 );
+            
+        text( "Turn: " + playerManager.Turn, width / 2, height / 2 - ((height / 4) / 2) + 50 );
+        
+        if( mouseX >= width / 2 - 75 && mouseX <= width / 2 - 75 + 150 && mouseY >= height / 2 + ((height / 4) / 2) - 50 && mouseY <= height / 2 + ((height / 4) / 2) - 50 + 50)
+            fill( 200 );
+        else
+            fill( 225 );
+        rect( width / 2 - 75, height / 2 + ((height / 4) / 2) - 50, 150, 50 );
+        if( mousePressed && mouseX >= width / 2 - 75 && mouseX <= width / 2 - 75 + 150 && mouseY >= height / 2 + ((height / 4) / 2) - 50 && mouseY <= height / 2 + ((height / 4) / 2) - 50 + 50)
+            currentMap = null;
+        
+        fill( 255 );
+        text( "Terug naar main menu", width / 2 - 70, height / 2 + ((height / 4) / 2) - 25 );
+
+    }
     private void FreezeCards()
     {
         // Temp variable to make sure the turn doesn't switch for every pair
@@ -81,7 +127,7 @@ public class Map
             pair.FirstCard.Frozen = true;
             pair.SecondCard.Frozen = true;
 
-            println("millis: " + millis() % 2000 );
+            //println("millis: " + millis() % 2000 );
             if( millis() % 2500 > 2000 )
             {
                 pair.FirstCard.SetChosen(false);
@@ -91,8 +137,9 @@ public class Map
                 pair.SecondCard.Frozen = false;
                 if( !changedTurn )
                 {
-                   playerManager.ToggleTurn();
-                   changedTurn = true;
+                    playerManager.GiveScore( -10 );
+                    playerManager.ToggleTurn();
+                    changedTurn = true;
                 }
             }
         }
