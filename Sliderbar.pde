@@ -46,6 +46,6 @@ public class Sliderbar
 
     public int GetValue()
     {
-        return constrain( value, min, max); // TODO: make it so it doesn't need to be clamped
+        return constrain( value, min, max);
     }
 }

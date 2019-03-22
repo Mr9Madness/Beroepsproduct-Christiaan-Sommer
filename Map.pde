@@ -3,10 +3,12 @@ public class Map
     private String[][] cards;
     private CardPair[] cardSets;
     private int setAmount;
+    private JSONObject highscore;
 
     public Map(int amountSets)
     {
         this.setAmount = amountSets;
+        this.highscore = new IO().LoadObject( setAmount );
     }
 
     public void Init()
@@ -26,10 +28,8 @@ public class Map
 
     private void InitCards()
     {
-        // TODO MAKE THIS LESS OF A MESS
         cards = new String[width / 100][height / 150];
 
-        // TODO Calculate the amount of card that fix on the screen
         cardSets = new CardPair[setAmount];
         Icons icons = new Icons("assets/icons.png").LoadIcons(cardSets.length);
         for (int i = 0; i < cardSets.length; i++)
@@ -44,7 +44,6 @@ public class Map
         int randomX = (int)random(0, width / 100);
         int randomY = (int)random(0, height / 150);
 
-        // TODO Implement a better way to see if its already taken
         while( cards[randomX][randomY] != null )
         {
             randomX = (int)random(0, width / 100);
@@ -58,12 +57,12 @@ public class Map
     private void DrawMapGUI()
     {
         fill( 255 );
-        text("Score: "/* + PlayerOne.Name */+ playerManager.PlayerOne.Score, 5, 10);
+        text("Score " + playerManager.PlayerOne.Name + ": " + playerManager.PlayerOne.Score, 5, 10);
 
         text( "Turn: " + playerManager.Turn, width / 2 - 10, 10 ); 
 
         if( playerManager.PlayerTwo != null )
-            text( "Score:" /*+ PlayerTwo.Name */+ playerManager.PlayerTwo.Score, width - 65, 10);
+            text( "Score " + playerManager.PlayerTwo.Name + ": " + playerManager.PlayerTwo.Score, width - 125, 10);
     }
 
     private void UpdateCards()
@@ -96,13 +95,15 @@ public class Map
     {
         fill(150);
         rect( width / 2 - ((width / 4) / 2), height / 2 - ((height / 4) / 2), width / 4, height / 4 );
-        
-        // TODO: Load previous high scores
-        
+                
+        if( highscore.getInt( "score" ) < playerManager.PlayerOne.Score ) new IO().SaveObject(setAmount, playerManager.PlayerOne.Name, playerManager.PlayerOne.Score ); 
+        if( playerManager.PlayerTwo != null && highscore.getInt( "score") < playerManager.PlayerTwo.Score ) new IO().SaveObject(setAmount, playerManager.PlayerTwo.Name, playerManager.PlayerTwo.Score ); 
         fill(255);
-        text( "Score: " + /*PlayerOne.Name+*/ playerManager.PlayerOne.Score, width / 2 - ((width / 4) / 2) + 10, height / 2 - ((height / 4) / 2) + 50 );
+        text( "Vorige high score van: " + highscore.getString("player") + " is " + highscore.getInt("score"), width / 2 - ((width / 4) / 2) + 10, height / 2 - ((height / 4) / 2) + 20 );
+
+        text( "Score " + playerManager.PlayerOne.Name + ": " + playerManager.PlayerOne.Score, width / 2 - ((width / 4) / 2) + 10, height / 2 - ((height / 4) / 2) + 50 );
         if( playerManager.PlayerTwo != null )
-            text( "Score:" + /*PlayerTwo.Name+*/ playerManager.PlayerTwo.Score, width / 2 - ((width / 4) / 2) + 10, height / 2 - ((height / 4) / 2) + 50 );
+            text( "Score " + playerManager.PlayerTwo.Name + ": " + playerManager.PlayerTwo.Score, width / 2 - ((width / 4) / 2) + 350, height / 2 - ((height / 4) / 2) + 50 );
             
         text( "Turn: " + playerManager.Turn, width / 2, height / 2 - ((height / 4) / 2) + 50 );
         
@@ -127,7 +128,6 @@ public class Map
             pair.FirstCard.Frozen = true;
             pair.SecondCard.Frozen = true;
 
-            //println("millis: " + millis() % 2000 );
             if( millis() % 2500 > 2000 )
             {
                 pair.FirstCard.SetChosen(false);

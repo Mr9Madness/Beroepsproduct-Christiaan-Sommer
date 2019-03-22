@@ -5,18 +5,15 @@ class PlayerManager
     
     public int Turn;
 
-    PlayerManager( boolean isMultiplayer, boolean... hasAI )
+    PlayerManager( boolean isMultiplayer, String PlayerOneName, String... PlayerTwoName )
     {
-        boolean _hasAI = Util.GetBoolean( false, hasAI );
+        String _playerTwoName = Util.GetString( "Speler 2", PlayerTwoName );
 
         if( isMultiplayer ) {
-            PlayerOne = new Player();
-            PlayerTwo = new Player();
-        } else if( !isMultiplayer && _hasAI ) {
-            PlayerOne = new Player();
-            PlayerTwo = new Player();
+            PlayerOne = new Player(PlayerOneName);
+            PlayerTwo = new Player(_playerTwoName);
         } else {
-            PlayerOne = new Player();
+            PlayerOne = new Player(PlayerOneName);
         }
         PlayerOne.CurrentTurn = true;
         Turn = 1;
@@ -26,7 +23,7 @@ class PlayerManager
     public void GiveScore( int amount )
     {
         if( PlayerOne.CurrentTurn ){
-            if( PlayerOne.Score + amount <= 0 ) //<>//
+            if( PlayerOne.Score + amount <= 0 )
                 PlayerOne.Score = 0;
             else 
                 PlayerOne.Score += amount;

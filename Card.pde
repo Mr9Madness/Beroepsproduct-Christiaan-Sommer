@@ -4,6 +4,7 @@ public class Card
     private String id;
     private PImage icon;
     private boolean chosen;
+    private boolean Inited;
 
     public boolean Frozen;
     public boolean Revealed;
@@ -13,8 +14,9 @@ public class Card
         this.id = GenerateID();
         this.icon = icon;
         this.chosen = false;
-        this.Revealed = false;
+        this.Revealed = true;
         this.Frozen = false;
+        this.Inited = false;
     }
 
     public String GetId(){ return id; }
@@ -31,12 +33,19 @@ public class Card
 
     public void Update()
     {
-        if( !Revealed && !Frozen )
+        if( Revealed && !Inited )
+        {
+            println("millis: " + millis() % 2500 );
+
+            if( millis() % 3500 > 3000 ){
+                Revealed = false;
+                Inited = true;
+            }
+        }
+        else if( !Revealed && !Frozen )
         {
             if( mousePressed && mouseX >= pos.X && mouseX <= pos.X + 100 && mouseY >= pos.Y && mouseY <= pos.Y + 150 ) {
 
-                // TODO This gets called every frame to it jump between true and false
-                // TODO Find a way to have a mouse released event variable thats only true for one frame
                 this.chosen = true;
                 fill(185);
             } else if( mouseX >= pos.X && mouseX <= pos.X + 100 && mouseY >= pos.Y && mouseY <= pos.Y + 150 )

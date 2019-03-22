@@ -9,7 +9,8 @@ public class CardPair {
     }
     public boolean IsFound()
     {
-        if( FirstCard.Revealed && FirstCard.Revealed ) return true;
+        if( !FirstCard.Inited && !SecondCard.Inited ) return false;
+        if( FirstCard.Revealed && SecondCard.Revealed ) return true;
         return false;
     }
     public CardPair() { }
