@@ -28,5 +28,21 @@ static class Util
         if( c.length == 1 ) return c[0];
         else return defaultValue;
     }
-
+    public boolean SaveArray()
+    {
+        return false;
+    }
+    public boolean SaveObject()
+    {
+        return false;
+    }
+    
+    public JSONArray LoadArray()
+    {
+        return new JSONArray();
+    }
+    public JSONObject LoadObject()
+    {
+        return new JSONObject();
+    }
 }
