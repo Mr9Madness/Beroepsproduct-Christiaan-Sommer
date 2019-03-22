@@ -63,15 +63,17 @@ class MainMenu
         rect( width / 2, height / 2, width / 2 - 50, height / 2 - 50);
 
         for( int i = 0; i < array.size(); i++ ){
-            int x = i >= 10 ? i - (i / 10) * 10 : i;
-            fill( 200 );
-            rect( width / 2 + 5 + x * 80, height / 2 + (i / 10) * 50 + 5, 75, 50);
-            
-            fill( 255 );
-            text( array.getJSONObject(i).getInt("index") + " sets", width / 2 + 15 + x * 80, height / 2 + (i / 10) * 50 + 25);
-            text( array.getJSONObject(i).getString("player") + ": " + array.getJSONObject(i).getInt("score"), width / 2 + 15 + x * 80, height / 2 + (i / 10) * 50 + 40 );
+            if(array.getJSONObject(i).getInt("score") != -1)
+            {
+                int x = i >= 10 ? i - (i / 10) * 10 : i;
+                fill( 200 );
+                rect( width / 2 + 5 + x * 80, height / 2 + (i / 10) * 50 + 5, 75, 50);
+                
+                fill( 255 );
+                text( array.getJSONObject(i).getInt("index") + " sets", width / 2 + 15 + x * 80, height / 2 + (i / 10) * 50 + 25);
+                text( array.getJSONObject(i).getString("player") + ": " + array.getJSONObject(i).getInt("score"), width / 2 + 15 + x * 80, height / 2 + (i / 10) * 50 + 40 );
+            }
         }
-
     }
 
     public void InitSinglePlayerGame()

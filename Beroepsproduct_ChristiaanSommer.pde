@@ -35,12 +35,23 @@ class IO
     {
         try
         {
-            JSONArray array = loadJSONArray("data.json"); //<>//
+            JSONArray array = loadJSONArray("data.json");
             JSONObject object = new JSONObject();
             object.setInt( "index", index );
             object.setInt( "score", value );
             object.setString( "player", player );
             array.setJSONObject(index - 2, object);
+            for( int i = 0; i < array.size(); i++ )
+            {
+                if( array.isNull(i) )
+                {
+                    JSONObject defaultObject = new JSONObject();
+                    defaultObject.setInt( "index", i + 2 );
+                    defaultObject.setInt( "score", -1 );
+                    defaultObject.setString( "player", "" );
+                    array.setJSONObject( i, defaultObject );
+                }
+            }
             saveJSONArray( array, "data.json" );
             return true;
         } catch( Exception e )
