@@ -99,7 +99,9 @@ public class Map
         if( highscore.getInt( "score" ) < playerManager.PlayerOne.Score ) new IO().SaveObject(setAmount, playerManager.PlayerOne.Name, playerManager.PlayerOne.Score ); 
         if( playerManager.PlayerTwo != null && highscore.getInt( "score") < playerManager.PlayerTwo.Score ) new IO().SaveObject(setAmount, playerManager.PlayerTwo.Name, playerManager.PlayerTwo.Score ); 
         fill(255);
-        text( "Vorige high score van: " + highscore.getString("player") + " is " + highscore.getInt("score"), width / 2 - ((width / 4) / 2) + 10, height / 2 - ((height / 4) / 2) + 20 );
+        String highscoreText = "Vorige high score van: " + highscore.getString("player") + " is " + highscore.getInt("score");
+        if( highscore.getString("player") == "") highscoreText = "Er is nog geen high score";
+        text( highscoreText, width / 2 - ((width / 4) / 2) + 10, height / 2 - ((height / 4) / 2) + 20 );
 
         text( "Score " + playerManager.PlayerOne.Name + ": " + playerManager.PlayerOne.Score, width / 2 - ((width / 4) / 2) + 10, height / 2 - ((height / 4) / 2) + 50 );
         if( playerManager.PlayerTwo != null )

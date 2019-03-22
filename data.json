@@ -78,5 +78,10 @@
     "score": 590,
     "index": 17,
     "player": "Speler 1"
+  },
+  {
+    "score": 500,
+    "index": 18,
+    "player": "testspeler"
   }
 ]
