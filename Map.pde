@@ -13,7 +13,6 @@ public class Map
 
     public void Init()
     {
-        //InitMap();
         InitCards();
     }
     

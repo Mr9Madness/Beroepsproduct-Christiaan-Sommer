@@ -11,8 +11,8 @@ class MainMenu
     {
         DrawGameGUI();
         bar = new Sliderbar(new int2(width / 2 + 100, 50), new int2(width / 2 - 250, 25), 2, 32);
-        firstPlayerInput = new TextInput(new int2(width / 2 + 100, 75), new int2(150, 50), "Speler 1");
-        secondPlayerInput = new TextInput(new int2(width / 2 + 100, 130), new int2(150, 50), "Speler 2");
+        firstPlayerInput = new TextInput(new int2(width / 2 + 100, 75), new int2(150, 35), "Speler 1");
+        secondPlayerInput = new TextInput(new int2(width / 2 + 100, 130), new int2(150, 35), "Speler 2");
 
         array = new IO().LoadArray();
     }
@@ -42,14 +42,14 @@ class MainMenu
         fill(150);
         rect( width / 2, height - (height - 25), width / 2 - 50, height / 2 - 50);
 
-        if( mouseX >= width / 2 + 150 - 35 && mouseX <= width / 2 + 150 - 35 + 150 && mouseY >= (height / 2 - 150) + 25 - 10 && mouseY <= (height - 150) + 25 - 10 + 45)
+        if( mouseX >= width / 2 + 150 - 35 && mouseX <= width / 2 + 150 - 35 + 150 && mouseY >= (height / 2 - 150) + 25 - 10 && mouseY <= (height / 2 - 150) + 25 - 10 + 45)
             fill(200);
         else
             fill( 255 );
         rect( width / 2 + 150 - 35, (height / 2 - 150) + 25 - 10, 150, 45 );
 
         fill( 0 );
-        text( "PLAY!", width / 2 + 150 - 35, (height / 2 - 150) + 25 - 10, 50 + 75 + 35, 75 + 25 + 10 );
+        text( "PLAY!", width / 2 + 170, (height / 2 - 150) + 30, 50 + 75 + 35, 75 + 25 + 10 );
 
 
         bar.Update();
@@ -94,6 +94,8 @@ class MainMenu
 
     public void Update()
     {
+        array = new IO().LoadArray();
+
         DrawGameGUI();
         DrawHighScoreGUI();
         if( isGameOptionsShowing ) DrawOptionsGUI();

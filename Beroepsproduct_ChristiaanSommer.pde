@@ -35,7 +35,7 @@ class IO
     {
         try
         {
-            JSONArray array = loadJSONArray("data.json");
+            JSONArray array = LoadArray();
             JSONObject object = new JSONObject();
             object.setInt( "index", index );
             object.setInt( "score", value );
@@ -63,7 +63,14 @@ class IO
 
     public JSONArray LoadArray()
     {
-        return loadJSONArray("data.json");
+        try
+        {
+            return loadJSONArray("data.json");
+        } catch( Exception e )
+        {
+            saveJSONArray( new JSONArray(), "data.json");
+            return loadJSONArray("data.json");
+        }
     }
     public JSONObject LoadObject(int index)
     {
